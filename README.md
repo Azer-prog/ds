@@ -93,16 +93,18 @@ generate_self_signed_certificate()
 ## Dictionary Attack
 The dictionary attack function checks if a given password hash matches any entry in a provided dictionary file.
 
-python
-Copy code
+```python
 attack_dictionary()
-Sub-Menus
+```
+
+## Sub-Menus
 This project includes sub-menus to help you navigate through the different functionalities, such as password hashing, RSA encryption, and certificate generation.
 
 Sub-Menu A: Password Hashing
 Sub-Menu B: RSA Encryption
 Sub-Menu C: RSA Certificate Generation
-Usage
+
+## Usage
 Run the script.
 Choose an option from the main menu (1 for registration, 2 for authentication).
 If you choose authentication, you will have access to additional sub-menus for various cryptographic operations.
