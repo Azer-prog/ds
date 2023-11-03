@@ -24,7 +24,7 @@ You can use these functions to validate passwords based on the following criteri
 ```python
 # Example usage
 is_valid_password(pwd)
-
+```
 
 ## User Registration
 This function allows you to register a new user with a valid email and password. It also securely hashes the password using bcrypt before storing it.
@@ -32,3 +32,11 @@ This function allows you to register a new user with a valid email and password.
 ```python
 # Example usage
 register_user(email, pwd)
+```
+
+## User Authentication
+This function allows you to authenticate a user with a valid email and password. It also securely compares the password with the hashed password stored in the database.
+
+```python
+authenticate_user(email, pwd)
+```
