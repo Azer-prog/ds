@@ -77,20 +77,20 @@ decrypt_message_rsa()
 You can sign and verify messages using RSA keys. The user can interactively input a message to sign and verify.
 
 Sign a message using a private key
-python
-Copy code
+```python
 sign_message_rsa()
+```
 Verify the signature of a message using a public key
-python
-Copy code
+```python
 verify_signature_rsa()
-Self-Signed Certificate Generation
+```
+## Self-Signed Certificate Generation
 Generate a self-signed certificate for secure communication. This function generates a certificate and saves it, along with the public and private keys, to files.
 
-python
-Copy code
+```python
 generate_self_signed_certificate()
-Dictionary Attack
+```
+## Dictionary Attack
 The dictionary attack function checks if a given password hash matches any entry in a provided dictionary file.
 
 python
