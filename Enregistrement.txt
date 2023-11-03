@@ -1,0 +1,3 @@
+azer@azer.com:Azerty007A+
+azer@azert.com:$2b$12$kQO0AP7mDx2IBaSJ2mhYtuOPg2MO3mongJ.QRzUqmf8zQOL3snQKm
+test@test.com:$2b$12$uLmVhHys82AIEcYcIVAatOiYJ7dbnnD0idL5m2psw4/dnfyeZyVrG
