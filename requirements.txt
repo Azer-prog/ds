@@ -1,0 +1,25 @@
+# Add any additional comments or notes if needed
+
+# For regular expressions
+re
+
+# For hashing
+hashlib
+
+# For bcrypt password hashing
+bcrypt
+
+# For RSA encryption
+rsa
+
+# For cryptography
+cryptography==3.4.8
+
+# For datetime
+datetime
+
+# For cryptography
+cryptography==3.4.8
+
+# For cryptography.exceptions
+cryptography==3.4.8
