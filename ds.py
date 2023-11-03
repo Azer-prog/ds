@@ -16,10 +16,13 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from datetime import datetime, timedelta
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 from cryptography.exceptions import InvalidSignature
 
+
+def is_valid_email(email):
+    # Vérifie que l'email respecte les règles
+    return re.match(r"[^@]+@[^@]+\.[^@]+", email)
 
 # Fonction pour vérifier si un mot de passe est valide
 def is_valid_password(pwd):
@@ -36,6 +39,9 @@ A minimum length of 8 characters.
 def register_user(email, pwd):
     if not is_valid_password(pwd):
         print("Le mot de passe ne respecte pas les règles.")
+        return
+    if not is_valid_email(email):
+        print("L'email n'est pas valide.")
         return
 
     # Vérification si l'utilisateur existe déjà
