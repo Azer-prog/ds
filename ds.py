@@ -189,6 +189,75 @@ def verify_signature_rsa():
     except InvalidSignature:
         print("La signature n'est pas valide.")
 
+def generate_self_signed_certificate():
+    # Generate a public/private key pair
+    key = rsa.generate_private_key(
+        public_exponent=65537,
+        key_size=2048,
+    )
+
+    # Generate a self-signed certificate
+    subject = issuer = x509.Name([
+        x509.NameAttribute(NameOID.COUNTRY_NAME, u"CA"),
+        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, u"Quebec"),
+        x509.NameAttribute(NameOID.LOCALITY_NAME, u"Montreal"),
+        x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"UQAM"),
+        x509.NameAttribute(NameOID.COMMON_NAME, u"uqam.ca"),
+    ])
+    cert = x509.CertificateBuilder().subject_name(
+        subject
+    ).issuer_name(
+        issuer
+    ).public_key(
+        key.public_key()
+    ).serial_number(
+        x509.random_serial_number()
+    ).not_valid_before(
+        datetime.utcnow()
+    ).not_valid_after(
+        # Our certificate will be valid for 10 days
+        datetime.utcnow() + timedelta(days=10)
+    ).sign(key, hashes.SHA256())
+
+    # Save the private key to a file
+    with open("private_key.pem", "wb") as private_key_file:
+        private_key_file.write(key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption(),
+        ))
+    
+    # Save the public key to a file
+    with open("public_key.pem", "wb") as public_key_file:
+        public_key_file.write(key.public_key().public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo,
+        ))
+
+    # Save the certificate to a file
+    with open("certificate.pem", "wb") as certificate_file:
+        certificate_file.write(cert.public_bytes(serialization.Encoding.PEM))
+
+
+def encrypt_message_with_certificate():
+    message = input("Entrez le message à chiffrer : ")
+
+    # Load the certificate from a file
+    with open("certificate.pem", "rb") as certificate_file:
+        certificate = x509.load_pem_x509_certificate(certificate_file.read())
+
+    # Encrypt the message
+    encrypted_message = certificate.public_key().encrypt(
+        message.encode('utf-8'),
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+
+    print(f"Le message chiffré est : {encrypted_message.hex()}")
+    
 def submenu_a():
     while True:
         print("Sous-menu A - Hachage:")
