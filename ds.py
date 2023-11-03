@@ -257,7 +257,24 @@ def encrypt_message_with_certificate():
     )
 
     print(f"Le message chiffré est : {encrypted_message.hex()}")
-    
+
+def attack_dictionary():
+    # Load the dictionary from a file
+    with open("dictionary.txt", "r") as dictionary_file:
+        words = dictionary_file.readlines()
+
+    # ask the user for the password to crack
+    password = input("Entrez le mot de passe à cracker : ")
+
+    # Try to find the password in the dictionary
+    for word in words:
+        hashed_word = sha256_hash(word.strip())
+        if hashed_word == password:
+            print(f"Le mot de passe est : {word.strip()}")
+            return
+
+    print("Le mot de passe n'a pas été trouvé dans le dictionnaire.")
+
 def submenu_a():
     while True:
         print("Sous-menu A - Hachage:")
@@ -278,7 +295,7 @@ def submenu_a():
             hashed_word = bcrypt_hash(word.encode('utf-8'), salt)
             print(f"Résultat du hachage avec bcrypt : {hashed_word}")
         elif choice == "c":
-            # Mettez en œuvre l'attaque par dictionnaire ici
+            attack_dictionary()
             pass
         elif choice == "d":
             break
